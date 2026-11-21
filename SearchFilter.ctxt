@@ -1,5 +1,0 @@
-#BlueJ class context
-comment0.target=SearchFilter
-comment1.params=products
-comment1.target=java.util.List\ filter(java.util.List)
-numComments=2

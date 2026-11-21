@@ -1,9 +1,0 @@
-#BlueJ class context
-comment0.target=productCatalog
-comment1.params=product
-comment1.target=void\ addProduct(Product)
-comment2.params=
-comment2.target=void\ displayCatalog()
-comment3.params=strategy
-comment3.target=java.util.List\ searchAndFilter(SearchFilter)
-numComments=4
