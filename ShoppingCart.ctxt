@@ -1,0 +1,11 @@
+#BlueJ class context
+comment0.target=ShoppingCart
+comment1.params=product\ quantity
+comment1.target=void\ addItem(Product,\ int)
+comment2.params=product
+comment2.target=void\ removeItem(Product)
+comment3.params=product\ newQuantity
+comment3.target=void\ updateQuantity(Product,\ int)
+comment4.params=
+comment4.target=void\ displayCart()
+numComments=5

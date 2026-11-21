@@ -1,4 +1,12 @@
-// COMMAND PATTERN: defines an operation that can be executed.
-public interface Command<T> {
-    T execute();
+
+/**
+ * Creates command interface for later use in other classes.
+ *
+ * @author Josh Findley
+ * @version 11/14/2026
+ */
+public interface Command {
+    //Command initializes simple methods to be called upon later
+    void execute();
+    void undo();
 }

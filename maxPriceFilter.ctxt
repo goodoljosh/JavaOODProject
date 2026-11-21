@@ -1,0 +1,7 @@
+#BlueJ class context
+comment0.target=maxPriceFilter
+comment1.params=maxPrice
+comment1.target=maxPriceFilter(double)
+comment2.params=products
+comment2.target=java.util.List\ filter(java.util.List)
+numComments=3

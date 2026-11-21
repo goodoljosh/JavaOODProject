@@ -1,81 +1,48 @@
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedHashMap;
-import java.util.List;
+/**
+ * Uses hashmap to add items, remove items, update quantity, etc.
+ *
+ * @author Josh Findley
+ * @version 11/14/2026
+ */
+import java.util.HashMap;
 import java.util.Map;
-
-// Cart subject in the OBSERVER PATTERN.
+// Receiver: Shopping Cart
 public class ShoppingCart {
-    private final Map<String, CartItem> items = new LinkedHashMap<>();
-    private final List<CartObserver> observers = new ArrayList<>();
-
-    public void addObserver(CartObserver observer) {
-        if (observer != null) observers.add(observer);
-    }
-
-    public void removeObserver(CartObserver observer) {
-        observers.remove(observer);
-    }
-
-    private void notifyObservers(String message) {
-        BigDecimal total = getTotal();
-        for (CartObserver observer : observers) {
-            observer.onCartUpdated(message, total);
-        }
-    }
+    //Create a hashmap to store Item information and quantity
+    private Map<Product, Integer> items = new HashMap<>();
 
     public void addItem(Product product, int quantity) {
-        if (product == null || quantity <= 0) {
-            throw new IllegalArgumentException("Product and positive quantity are required.");
-        }
-
-        String id = product.getProductId();
-        CartItem existing = items.get(id);
-        if (existing == null) {
-            items.put(id, new CartItem(product, quantity));
-        } else {
-            existing.setQuantity(existing.getQuantity() + quantity);
-        }
-        notifyObservers(quantity + " " + product.getName() + "(s) added.");
+        items.put(product, items.getOrDefault(product, 0) + quantity);
+        System.out.println("[Cart] Added " + quantity + "x " + product.getName());
     }
 
-    public void updateQuantity(String productId, int quantity) {
-        CartItem item = items.get(productId);
-        if (item == null) throw new IllegalArgumentException("Item is not in the cart.");
+    public void removeItem(Product product) {
+        items.remove(product);
+        System.out.println("[Cart] Removed " + product.getName() + " completely.");
+    }
 
-        if (quantity <= 0) {
-            removeItem(productId);
+    public void updateQuantity(Product product, int newQuantity) {
+        if (newQuantity <= 0) {
+            removeItem(product);
+        } else {
+            items.put(product, newQuantity);
+            System.out.println("Shopping cart has been updated " + product.getName() + " quantity to " + newQuantity);
+        }
+    }
+    //Checks if cart is empty
+    public void displayCart() {
+        System.out.println("Displaying current shopping cart");
+        if (items.isEmpty()) {
+            System.out.println("Shopping cart is currently empty.");
             return;
         }
-
-        item.setQuantity(quantity);
-        notifyObservers("Quantity updated for " + item.getProduct().getName() + ".");
-    }
-
-    public void removeItem(String productId) {
-        CartItem removed = items.remove(productId);
-        if (removed != null) {
-            notifyObservers(removed.getProduct().getName() + " removed from cart.");
+        double total = 0;
+        for (Product p : items.keySet()) {
+            int qty = items.get(p);
+            double subtotal = p.getPrice() * qty;
+            total += subtotal;
+            System.out.println(p.getName() + " x " + qty + " = $" + subtotal);
         }
-    }
-
-    public BigDecimal getTotal() {
-        BigDecimal total = BigDecimal.ZERO;
-        for (CartItem item : items.values()) {
-            total = total.add(item.getSubtotal());
-        }
-        return total;
-    }
-
-    public List<CartItem> getItems() {
-        return Collections.unmodifiableList(new ArrayList<>(items.values()));
-    }
-
-    public boolean isEmpty() { return items.isEmpty(); }
-
-    public void clear() {
-        items.clear();
-        notifyObservers("Cart cleared after checkout.");
+        System.out.println("Total Cart Value: $" + total);
     }
 }
