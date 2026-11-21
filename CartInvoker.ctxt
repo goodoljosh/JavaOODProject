@@ -1,6 +1,0 @@
-#BlueJ class context
-comment0.target=CartInvoker
-comment0.text=\r\n\ Class\ file\ that\ allows\ command,\ when\ called\ to\ execute\ within\ the\ context\ of\ adding\ items\ to\ grocery\ cart\ list.\r\n\r\n\ @author\ Josh\ Findley\r\n\ @version\ 11/14/2026\r\n
-comment1.params=command
-comment1.target=void\ executeCommand(Command)
-numComments=2
